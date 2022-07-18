@@ -1,9 +1,16 @@
 import Link from 'next/link'
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import Header from '../../../components/Header/HeaderLogin/Header'
 import 'antd/dist/antd.css'
-import { Input } from 'antd'
+import { Button, Form, Input } from 'antd';
+import React from 'react';
 
 export default function Register() {
+
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+    };
+
     return(
         <>
             <Header />
@@ -18,27 +25,34 @@ export default function Register() {
                                 <h1 class="uppercase text-3xl font-bold tracking-widest">Registration</h1>
                                 <p class="text-slate-400">Please enter your appropriate data, email and password will be used when you logout and login. And don't forget</p>
                             </div>
-                            <form>
-                                <div class="mb-6">
-                                    <input type="text" class="form-control block w-full px-4 py-1 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required placeholder="Input your username here!"/>
-                                </div>
-                                <div class="mb-6">
-                                    <input type="email" class="form-control block w-full px-4 py-1 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required placeholder="Input your Email here!"/>
-                                </div>
+                            <Form name="normal_login" className="login-form" onFinish={onFinish}>
+                                <Form.Item
+                                    name="username" rules={[{ required: true, type: "email", message: 'Please input your Username!' }]}>
+                                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                                </Form.Item>
+                                <Form.Item
+                                    name="email" rules={[{ required: true, type: "text", message: 'Please input your Username!' }]}>
+                                    <Input prefix={ <MailOutlined  className="site-form-item-icon" />} placeholder="Email" />
+                                </Form.Item>
                                 <div class="flex">
                                     <div class="mb-6 w-2/4 pr-1">
-                                        <Input.Password class="block w-full p-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Input your password here!" required />
+                                        <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+                                            <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password"/>
+                                        </Form.Item>
                                     </div>
-                                    <div class="mb-6 w-2/4 pl-1">
-                                        <Input.Password class="block w-full p-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Input your password here!" required />
+                                    <div class="mb-6 w-2/4 pr-1">
+                                        <Form.Item name="repeat_password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+                                            <Input.Password prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password"/>
+                                        </Form.Item>
                                     </div>
                                 </div>
-
-                                <button type="submit" class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full" data-mdb-ripple="true" data-mdb-ripple-color="light">Sign in</button>
-                                <div class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-                                    <p class="text-center font-semibold mx-4 mb-0">Already have an account? <Link href="./../../Content/Login"><a class="text-blue-700">Login Now</a></Link></p>
-                                </div>
-                            </form>
+                                <Form.Item>
+                                    <Button type="primary" htmlType="submit" className="inline-block px-7 py-3 font-medium text-sm rounded shadow-md w-full">Sign Up</Button>
+                                    <div class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                                        <p class="text-center font-semibold mx-4 mb-0">Already have an account? <Link href="./../../Content/Login"><a class="text-blue-700">Log In</a></Link></p>
+                                    </div>
+                                </Form.Item>
+                            </Form>
                         </div>
                     </div>
                 </div>
